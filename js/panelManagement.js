@@ -12,3 +12,14 @@ function checkClass(){
         location=location+"?class="+document.getElementById("classSelector").value;
     }
 }
+function toogleDisable(id) {
+    if (disabled[id] !== true) {
+        disabled[id] = true;
+        document.getElementById(id).classList.add("disabled")
+    } else {
+        disabled[id] = false;
+        document.getElementById(id).classList.remove("disabled")
+    }
+    console.log(disabled[id])
+
+}

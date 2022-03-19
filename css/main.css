@@ -68,26 +68,61 @@ html body main {
   align-items: flex-start;
   align-content: flex-start;
 }
+html body main .settingsBox {
+  margin: 20px;
+}
+html body main .settingsBox .settingsRow {
+  font-size: 20px;
+  margin: 20px;
+}
+html body main .settingsBox .settingsRow input[type=range] {
+  all: unset;
+  width: 300px;
+  border-radius: 2px;
+  height: 10px;
+  background-color: #ffffff;
+}
+html body main .settingsBox .settingsRow button {
+  all: unset;
+  margin: 10px 10px 10px 0;
+  padding: 8px 14px;
+  background-color: #fff;
+}
+html body main .chart {
+  width: 750px;
+  height: 500px;
+}
 html body main hr {
   all: unset;
   width: 100%;
   height: 0;
 }
-html body main form {
+html body main form, html body main .formEmulation {
   padding: 10px;
 }
-html body main form select {
+html body main form select, html body main .formEmulation select {
   all: unset;
   width: 100%;
   background-color: #ffffff;
   padding: 10px;
   margin: 30px 0;
 }
-html body main form input {
+html body main form input, html body main .formEmulation input {
   all: unset;
   padding: 5px;
   background-color: #fff;
   font-size: 20px;
+}
+html body main form button, html body main .formEmulation button {
+  all: unset;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(180, 255, 180, 0.37);
+  padding: 10px;
+}
+html body main form .resetbtn, html body main .formEmulation .resetbtn {
+  margin-bottom: 10px;
+  background-color: rgba(255, 150, 150, 0.37);
 }
 html body main .listBox p {
   text-align: center;
@@ -111,9 +146,20 @@ html body main .randomList {
   width: 100%;
   color: #000000;
 }
-html body main .randomList .checked {
-  color: gray;
+html body main .randomList .disabled {
+  color: #7c7c7c;
   text-decoration: line-through;
+  transition: 0.3s;
+}
+html body main .randomList .checked {
+  color: #cc0000;
+  text-decoration: line-through;
+  transition: 0.3s;
+}
+html body main .randomList .won {
+  color: green;
+  font-weight: bold;
+  transition: 0.3s;
 }
 html body main .lock {
   display: flex;

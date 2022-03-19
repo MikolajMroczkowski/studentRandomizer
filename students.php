@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/panelManagement.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body onload="checkClass()">
 <nav class="sidebar">
@@ -18,6 +19,8 @@
         <p>Statystyki Losowania</p></a><br>
     <a href="students.php" class="active"><i class="bi bi-person"></i><p>Uczniowie</p></a><br>
     <a href="classes.php"><i class="bi bi-people"></i><p>Klasy</p></a><br>
+    <a href="settings.php"><i class="bi bi-gear"></i>
+        <p>Ustawienia</p></a><br>
 </nav>
 <main>
     <form>

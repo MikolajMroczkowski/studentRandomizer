@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
 </head>
 <body>
 <nav class="sidebar">
@@ -21,6 +22,8 @@
         <p>Uczniowie</p></a><br>
     <a href="classes.php" class="active"><i class="bi bi-people"></i>
         <p>Klasy</p></a><br>
+    <a href="settings.php" ><i class="bi bi-gear"></i>
+        <p>Ustawienia</p></a><br>
 </nav>
 <main>
     <form>
