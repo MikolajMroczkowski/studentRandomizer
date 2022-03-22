@@ -50,7 +50,7 @@ html body .sidebar:hover, html body .sidebar:focus {
 html body .sidebar:hover p, html body .sidebar:focus p {
   height: auto;
   width: auto;
-  font-size: 25px;
+  font-size: 20px;
 }
 html body .sidebar .down {
   align-self: flex-end;
@@ -130,18 +130,54 @@ html body main .listBox p {
   margin-bottom: 5px;
   font-size: 25px;
   cursor: pointer;
-  width: 100%;
   color: #000000;
 }
 html body main .listBox p:hover {
   color: #ff0000;
   text-decoration: line-through;
 }
+html body main .loginBox {
+  width: 50%;
+  margin: 20px;
+  align-self: center;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.55);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+html body main .loginBox h1 {
+  text-align: center;
+  font-size: 30px;
+  width: 100%;
+}
+html body main .loginBox form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+html body main .loginBox form a {
+  color: #7c7c7c;
+}
+html body main .loginBox form input {
+  font-size: 15px;
+  width: 100%;
+  padding: 10px;
+  margin: 4px;
+  background-color: #ffffff;
+}
+html body main .loginBox form input[type=submit] {
+  width: auto;
+  text-align: center;
+  justify-self: right;
+}
 html body main .randomList {
   text-align: center;
   margin-top: 5px;
   margin-bottom: 5px;
-  font-size: 25px;
+  font-size: 20px;
   cursor: pointer;
   width: 100%;
   color: #000000;

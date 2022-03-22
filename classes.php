@@ -1,3 +1,10 @@
+<?php
+session_start();
+if($_SESSION['zalogowany']!=true){
+    header("Location: login.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -24,6 +31,8 @@
         <p>Klasy</p></a><br>
     <a href="settings.php" ><i class="bi bi-gear"></i>
         <p>Ustawienia</p></a><br>
+    <a href="logout.php" ><i class="bi bi-box-arrow-left"></i>
+        <p>Wyloguj się</p></a><br>
 </nav>
 <main>
     <form>
@@ -40,7 +49,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "INSERT INTO classes (name) VALUES ('" . $_GET['name'] . "')";
+            $sql = "INSERT INTO classes (name,owner) VALUES ('" . $_GET['name'] . "',".$_SESSION['id'].")";
             if ($conn->query($sql) === TRUE) {
                 echo "Utworzono Klasę!";
             } else {
@@ -53,7 +62,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "DELETE FROM classes WHERE id=" . $_GET['id'];
+            $sql = "DELETE FROM classes WHERE owner=".$_SESSION['id']." AND id=" . $_GET['id'];
             if ($conn->query($sql) === TRUE) {
                 echo "Usunięto Klasę!";
             } else {
@@ -71,14 +80,14 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "SELECT * FROM classes";
+        $sql = "SELECT * FROM classes WHERE owner = ".$_SESSION['id'];
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 echo "<p onclick='deleteClass(" . $row['id'] . ")'>" . $row['name'] . "</p>";
             }
         } else {
-            echo "<p>Error While Reading From DB</p>";
+            echo "<p>You don't have classes</p>";
         }
         $conn->close();
         ?>

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if($_SESSION['zalogowany']!=true){
+    header("Location: login.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -25,6 +32,8 @@
         <p>Klasy</p></a><br>
     <a href="settings.php"><i class="bi bi-gear"></i>
         <p>Ustawienia</p></a><br>
+    <a href="logout.php" ><i class="bi bi-box-arrow-left"></i>
+        <p>Wyloguj się</p></a><br>
 </nav>
 <main>
     <div class="formEmulation">
@@ -35,7 +44,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT * FROM classes";
+            $sql = "SELECT * FROM classes WHERE owner=".$_SESSION['id'];
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -46,7 +55,7 @@
                     }
                 }
             } else {
-                echo "<option>ERROR</option>";
+                echo "<option>Create class first</option>";
             }
             $conn->close();
             ?>
@@ -62,7 +71,7 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "SELECT * FROM students WHERE class=" . $_GET['class'] . " ORDER BY number";
+        $sql = "SELECT s.id as id, s.number as number, s.name as name, s.surname FROM students s INNER JOIN classes c ON s.class=c.id WHERE c.owner=".$_SESSION['id']." AND s.class=" . $_GET['class'] . " ORDER BY number";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {

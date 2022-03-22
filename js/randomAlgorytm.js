@@ -2,7 +2,7 @@ var dataObject = "";
 var randomingList = null;
 var classToRemove = []
 var disabled = [];
-
+var isWorking = false;
 function init() {
     var http = new XMLHttpRequest();
     http.open("GET", "dataApi.php?class=" + document.getElementById('classSelector').value)
@@ -29,6 +29,10 @@ function resetRandomer(isFull) {
 }
 
 function initRandom() {
+    if(isWorking){
+        return;
+    }
+    isWorking=true;
     resetRandomer()
     var http = new XMLHttpRequest();
     http.open("GET", "dataApi.php?class=" + document.getElementById('classSelector').value)
@@ -150,6 +154,7 @@ function sendWonInfo(id) {
     http.open("GET", "statistic.php?saveWon=" + id);
     http.onload = function (ev) {
         console.log("Zapisano")
+        isWorking=false;
         var repeat = getCookie("repeat")
         if (repeat === null) {
             repeat = "0"

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if($_SESSION['zalogowany']!=true){
+    header("Location: login.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -25,6 +32,8 @@
         <p>Klasy</p></a><br>
     <a href="settings.php" class="active"><i class="bi bi-gear"></i>
         <p>Ustawienia</p></a><br>
+    <a href="logout.php" ><i class="bi bi-box-arrow-left"></i>
+        <p>Wyloguj się</p></a><br>
 </nav>
 <main>
     <div class="settingsBox">
@@ -45,6 +54,53 @@
             <label for="repeat">Zapętlaj</label><input onchange="repeat(this.value)" type="checkbox" id="repeat"><br>
             <button onclick="repeat(false)">Reset</button>
         </div>
+        <div class="settingsRow">
+            <form method="post">
+                <input placeholder="Nowe hasło" type="password" name="password">
+                <input type="hidden" name="action" value="newpass">
+                <input placeholder="Powtórz nowe hasło" type="password" name="rePassword">
+                <input type="submit" value="zmień">
+                <?php
+                    switch ($_POST['action']){
+                        case "newpass":
+                            if($_POST['password']==$_POST['rePassword']){
+                                $pass = password_hash($_POST['password'],PASSWORD_DEFAULT);
+                                require_once "config.php";
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                $sql = "UPDATE users SET password='".$pass."' WHERE id=".$_SESSION['id'];
+                                $result = $conn->query($sql);
+                                $conn->close();
+                                echo "Zmieniono";
+                            }
+                            else{
+                                echo "Hasła niezgodne";
+                            }
+                            break;
+                        case "removeaccount":
+                            require_once "config.php";
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            }
+                            $sql = "DELETE FROM users WHERE id=".$_SESSION['id'];
+                            $result = $conn->query($sql);
+                            $conn->close();
+                            echo "Usunięto";
+                            break;
+                    }
+                ?>
+            </form>
+        </div>
+        <div class="settingsRow">
+            <form method="post">
+                <input type="hidden" name="action" value="removeaccount">
+                <input type="submit" value="Usuń moje konto">
+            </form>
+        </div>
+
     </div>
 
 </main>

@@ -44,7 +44,7 @@ html {
         p{
           height: auto;
           width: auto;
-          font-size: 25px;
+          font-size: 20px;
         }
         transition: 0.5s;
         width: 250px;
@@ -130,7 +130,6 @@ html {
           margin-bottom: 5px;
           font-size: 25px;
           cursor: pointer;
-          width: 100%;
           color:#000000;
           &:hover {
             color: #ff0000;
@@ -138,11 +137,48 @@ html {
           }
         }
       }
+      .loginBox{
+        width: 50%;
+        margin:20px;
+        align-self: center;
+        padding: 20px;
+        border-radius: 20px;
+        background-color: rgba(255, 255, 255, 0.55);
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        h1{
+          text-align: center;
+          font-size: 30px;
+          width: 100%;
+        }
+        form{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+          a{
+            color: #7c7c7c;
+          }
+          input{
+            font-size: 15px;
+            width: 100%;
+            padding: 10px;
+            margin:4px;
+            background-color: #ffffff;
+            &[type=submit]{
+              width: auto;
+              text-align: center;
+              justify-self: right;
+            }
+          }
+        }
+      }
       .randomList{
         text-align: center;
         margin-top: 5px;
         margin-bottom: 5px;
-        font-size: 25px;
+        font-size: 20px;
         cursor: pointer;
         width: 100%;
         color:#000000;

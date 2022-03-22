@@ -1,14 +1,24 @@
 <?php
+session_start();
+if($_SESSION['zalogowany']!=true){
+    header("Location: login.php");
+    exit;
+}
+?>
+<?php
 if(is_numeric($_GET['saveWon'])){
     require_once "config.php";
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
-    $sql = "INSERT INTO probability (student) VALUES (".$_GET['saveWon'].")";
-    $conn->query($sql);
+    $sql = "SELECT * FROM students s INNER JOIN classes c ON s.class=c.id WHERE c.owner=".$_SESSION['id'];
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $sqlInsert = "INSERT INTO probability (student) VALUES (" . $_GET['saveWon'] . ")";
+        $conn->query($sqlInsert);
+    }
     $conn->close();
-    echo $sql;
     exit;
 }
 ?>
@@ -36,6 +46,8 @@ if(is_numeric($_GET['saveWon'])){
     <a href="classes.php"><i class="bi bi-people"></i><p>Klasy</p></a><br>
     <a href="settings.php" ><i class="bi bi-gear"></i>
         <p>Ustawienia</p></a><br>
+    <a href="logout.php" ><i class="bi bi-box-arrow-left"></i>
+        <p>Wyloguj się</p></a><br>
 </nav>
 <main>
     <form>
@@ -46,7 +58,7 @@ if(is_numeric($_GET['saveWon'])){
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT * FROM classes";
+            $sql = "SELECT * FROM classes WHERE owner=".$_SESSION['id'];
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
@@ -78,7 +90,8 @@ if(is_numeric($_GET['saveWon'])){
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "SELECT *, (SELECT COUNT(*) FROM probability WHERE student = s.id) as wylosowan FROM students s WHERE class=".$_GET['class']." ORDER BY number";
+        $sql = "SELECT s.number as number, s.name as name, s.surname as surname, (SELECT COUNT(*) FROM probability WHERE student = s.id) as wylosowan FROM students s INNER JOIN classes c ON c.id=s.class WHERE c.owner=".$_SESSION['id']." AND class=".$_GET['class']." ORDER BY number";
+        echo 'console.log("'.$sql.'")'."\n";
         $result = $conn->query($sql);
         $students = array('students'=>array(),'isEmpty'=>$result->num_rows == 0);
         if ($result->num_rows > 0) {

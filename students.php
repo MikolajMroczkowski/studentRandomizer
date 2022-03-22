@@ -1,3 +1,10 @@
+<?php
+session_start();
+if($_SESSION['zalogowany']!=true){
+    header("Location: login.php");
+    exit;
+}
+?>
 <!doctype html>
 <html lang="pl">
 <head>
@@ -21,6 +28,8 @@
     <a href="classes.php"><i class="bi bi-people"></i><p>Klasy</p></a><br>
     <a href="settings.php"><i class="bi bi-gear"></i>
         <p>Ustawienia</p></a><br>
+    <a href="logout.php" ><i class="bi bi-box-arrow-left"></i>
+        <p>Wyloguj się</p></a><br>
 </nav>
 <main>
     <form>
@@ -31,7 +40,7 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
-            $sql = "SELECT * FROM classes";
+            $sql = "SELECT * FROM classes WHERE owner=".$_SESSION['id'];
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
@@ -43,7 +52,7 @@
                     }
                 }
             } else {
-                echo "<option>ERROR</option>";
+                echo "<option>Create class First</option>";
             }
             $conn->close();
             ?>
